@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">FFmpeg Video Editor</string>
+    <string name="rangeSeekBarText">Use RangeSeekbar to select range for cutting video or extracting image from video(ineffective for other options)</string>
+    <string name="uploadVideo">Upload\nVideo</string>
+    <string name="compressVideo">Compress\nVideo</string>
+    <string name="cutVideo">Cut\nVideo</string>
+    <string name="extractImages">Extract\nImages</string>
+    <string name="extractAudio">Extract\nAudio</string>
+    <string name="addFade">Add\nFade in-out</string>
+    <string name="increaseSpeed">Fast\nMotion</string>
+    <string name="decreaseSpeed">Slow\nMotion</string>
+</resources>
