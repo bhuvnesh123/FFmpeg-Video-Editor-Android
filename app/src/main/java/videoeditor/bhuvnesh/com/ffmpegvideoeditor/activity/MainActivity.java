@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
                 choice = 6;
                 if (selectedImageUri != null) {
                     if (isNetWorkAvailable(mContext))
-                        executeIncreaseVideoSpeedCommand();
+                        executeFastMotionVideoCommand();
                     else
                         Snackbar.make(mainlayout, "Please check your internet connection", 4000).show();
                 }
@@ -294,6 +294,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Opening gallery for uploading video
+     */
     private void uploadVideo() {
         try {
             Intent intent = new Intent();
@@ -383,6 +386,9 @@ public class MainActivity extends AppCompatActivity {
         return String.format("%02d", hr) + ":" + String.format("%02d", mn) + ":" + String.format("%02d", sec);
     }
 
+    /**
+     * Load FFmpeg binary
+     */
     private void loadFFMpegBinary() {
         try {
             if (ffmpeg == null) {
@@ -424,6 +430,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Command for cutting video created here
+     */
     private void executeCutVideoCommand(int startMs, int endMs) {
         File moviesDir = Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_MOVIES
@@ -438,10 +447,6 @@ public class MainActivity extends AppCompatActivity {
             fileNo++;
             dest = new File(moviesDir, filePrefix + fileNo + fileExtn);
         }
-//        if (dest.exists()) {
-//            dest.delete();
-//        }
-
 
         Log.d(TAG, "startTrim: src: " + yourRealPath);
         Log.d(TAG, "startTrim: dest: " + dest.getAbsolutePath());
@@ -455,6 +460,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Command for compressing video created here
+     */
     private void executeCompressCommand() {
         File moviesDir = Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_MOVIES
@@ -471,10 +479,6 @@ public class MainActivity extends AppCompatActivity {
             fileNo++;
             dest = new File(moviesDir, filePrefix + fileNo + fileExtn);
         }
-//        if (dest.exists()) {
-//            dest.delete();
-//        }
-
 
         Log.d(TAG, "startTrim: src: " + yourRealPath);
         Log.d(TAG, "startTrim: dest: " + dest.getAbsolutePath());
@@ -484,6 +488,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Command for extracting images from video created here
+     */
     private void extractImagesVideo(int startMs, int endMs) {
         File moviesDir = Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES
@@ -502,13 +509,7 @@ public class MainActivity extends AppCompatActivity {
         }
         dir.mkdir();
         filePath = dir.getAbsolutePath();
-        //deleteRecursive(dir);
-//        if(!dir.exists())
-//            dir.mkdir();
         File dest = new File(dir, filePrefix + "%03d" + fileExtn);
-//        if (dest.exists()) {
-//            dest.delete();
-//        }
 
 
         Log.d(TAG, "startTrim: src: " + yourRealPath);
@@ -520,6 +521,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Command for adding fade in fade out effect at start and end of video created here
+     */
     private void executeFadeInFadeOutCommand() {
         File moviesDir = Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_MOVIES
@@ -536,9 +540,6 @@ public class MainActivity extends AppCompatActivity {
             fileNo++;
             dest = new File(moviesDir, filePrefix + fileNo + fileExtn);
         }
-//        if (dest.exists()) {
-//            dest.delete();
-//        }
 
 
         Log.d(TAG, "startTrim: src: " + yourRealPath);
@@ -549,7 +550,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void executeIncreaseVideoSpeedCommand() {
+    /**
+     * Command for creating fast motion video
+     */
+    private void executeFastMotionVideoCommand() {
         File moviesDir = Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_MOVIES
         );
@@ -565,9 +569,6 @@ public class MainActivity extends AppCompatActivity {
             fileNo++;
             dest = new File(moviesDir, filePrefix + fileNo + fileExtn);
         }
-//        if (dest.exists()) {
-//            dest.delete();
-//        }
 
 
         Log.d(TAG, "startTrim: src: " + yourRealPath);
@@ -578,35 +579,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void executeReverseVideoCommand() {
-        File moviesDir = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_MOVIES
-        );
-
-        String filePrefix = "reverse_video";
-        String fileExtn = ".mp4";
-        String yourRealPath = getPath(MainActivity.this, selectedImageUri);
-
-
-        File dest = new File(moviesDir, filePrefix + fileExtn);
-        int fileNo = 0;
-        while (dest.exists()) {
-            fileNo++;
-            dest = new File(moviesDir, filePrefix + fileNo + fileExtn);
-        }
-//        if (dest.exists()) {
-//            dest.delete();
-//        }
-
-
-        Log.d(TAG, "startTrim: src: " + yourRealPath);
-        Log.d(TAG, "startTrim: dest: " + dest.getAbsolutePath());
-        filePath = dest.getAbsolutePath();
-        String[] complexCommand = {"-y", "-i", yourRealPath, "-vf", "reverse",  filePath};
-        execFFmpegBinary(complexCommand);
-
-    }
-
+    /**
+     * Command for creating slow motion video
+     */
     private void executeSlowMotionVideoCommand() {
         File moviesDir = Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_MOVIES
@@ -623,9 +598,6 @@ public class MainActivity extends AppCompatActivity {
             fileNo++;
             dest = new File(moviesDir, filePrefix + fileNo + fileExtn);
         }
-//        if (dest.exists()) {
-//            dest.delete();
-//        }
 
 
         Log.d(TAG, "startTrim: src: " + yourRealPath);
@@ -635,6 +607,10 @@ public class MainActivity extends AppCompatActivity {
         execFFmpegBinary(complexCommand);
 
     }
+
+    /**
+     * Command for extracting audio from video
+     */
     private void extractAudioVideo() {
         File moviesDir = Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_MUSIC
@@ -650,21 +626,19 @@ public class MainActivity extends AppCompatActivity {
             fileNo++;
             dest = new File(moviesDir, filePrefix + fileNo + fileExtn);
         }
-//        if (dest.exists()) {
-//            dest.delete();
-//        }
         Log.d(TAG, "startTrim: src: " + yourRealPath);
         Log.d(TAG, "startTrim: dest: " + dest.getAbsolutePath());
         filePath = dest.getAbsolutePath();
-        // String[] complexCommand = {"-y" ,"-i", yourRealPath,"-strict","experimental","-vf", "crop=","100:100:0:0","-s", "320x240", "-r", "15", "-aspect", "3:4","12288", "-vcodec", "mpeg4", "-b", "2097152", dest.getAbsolutePath()};
 
         String[] complexCommand = {"-y", "-i", yourRealPath, "-vn", "-ar", "44100", "-ac", "2", "-b:a", "256k", "-f", "mp3", filePath};
 
         execFFmpegBinary(complexCommand);
-        //execFFmpegBinary(String[]["-i " + "/storage/sdcard0/Movies/make_your_song.mp4" + " -ss "+ startMs/1000 + " -t " + endMs/1000 + " -strict -2 -async 1 "+ dest.getAbsolutePath()]);
 
     }
 
+    /**
+     * Executing ffmpeg binary
+     */
     private void execFFmpegBinary(final String[] command) {
         try {
             ffmpeg.execute(command, new ExecuteBinaryResponseHandler() {
@@ -785,14 +759,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Get the value of the data column for this Uri. This is useful for
-     * MediaStore Uris, and other file-based ContentProviders.
-     *
-     * @param context       The context.
-     * @param uri           The Uri to query.
-     * @param selection     (Optional) Filter used in the query.
-     * @param selectionArgs (Optional) Selection arguments used in the query.
-     * @return The value of the _data column, which is typically a file path.
+     * Get the value of the data column for this Uri.
      */
     private String getDataColumn(Context context, Uri uri, String selection,
                                  String[] selectionArgs) {
@@ -842,6 +809,9 @@ public class MainActivity extends AppCompatActivity {
         return "com.android.providers.media.documents".equals(uri.getAuthority());
     }
 
+    /**
+     * Check whether internet connection is there or not
+     */
     private boolean isNetWorkAvailable(Context context) {
 
         ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
