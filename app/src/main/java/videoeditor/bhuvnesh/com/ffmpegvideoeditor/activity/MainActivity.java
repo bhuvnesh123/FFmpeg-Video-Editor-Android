@@ -70,17 +70,21 @@ public class MainActivity extends AppCompatActivity {
 
         mContext = this;
         final TextView uploadVideo = (TextView) findViewById(R.id.uploadVideo);
-        TextView cropVideo = (TextView) findViewById(R.id.cropVideo);
+        TextView cutVideo = (TextView) findViewById(R.id.cropVideo);
         TextView compressVideo = (TextView) findViewById(R.id.compressVideo);
         TextView extractImages = (TextView) findViewById(R.id.extractImages);
         TextView fadeEffect = (TextView) findViewById(R.id.fadeEffect);
         TextView increaseSpeed = (TextView) findViewById(R.id.increaseSpeed);
-        TextView decreaseSpeed=(TextView) findViewById(R.id.decreaseSpeed);
+        TextView decreaseSpeed = (TextView) findViewById(R.id.decreaseSpeed);
+
 
         tvLeft = (TextView) findViewById(R.id.tvLeft);
         tvRight = (TextView) findViewById(R.id.tvRight);
         final TextView extractAudio = (TextView) findViewById(R.id.extractAudio);
-
+        if (Build.VERSION.SDK_INT == 16)
+            extractAudio.setVisibility(View.GONE);
+        else
+            extractAudio.setVisibility(View.VISIBLE);
         videoView = (VideoView) findViewById(R.id.videoView);
         rangeSeekBar = (RangeSeekBar) findViewById(R.id.rangeSeekBar);
         mainlayout = (ScrollView) findViewById(R.id.mainlayout);
@@ -118,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        cropVideo.setOnClickListener(new View.OnClickListener() {
+        cutVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -163,8 +167,7 @@ public class MainActivity extends AppCompatActivity {
                             getAudioPermission();
                         else
                             extractAudioVideo();
-                    }
-                    else
+                    } else
                         Snackbar.make(mainlayout, "Please check your internet connection", 4000).show();
                 } else
                     Snackbar.make(mainlayout, "Please upload a video", 4000).show();
@@ -174,15 +177,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 choice = 5;
-                if (selectedImageUri != null)
-                {
+                if (selectedImageUri != null) {
                     if (isNetWorkAvailable(mContext))
-                    executeFadeInFadeOutCommand();
+                        executeFadeInFadeOutCommand();
                     else
-                    Snackbar.make(mainlayout, "Please check your internet connection", 4000).show();
-                }
-
-                else
+                        Snackbar.make(mainlayout, "Please check your internet connection", 4000).show();
+                } else
                     Snackbar.make(mainlayout, "Please upload a video", 4000).show();
             }
         });
@@ -196,8 +196,7 @@ public class MainActivity extends AppCompatActivity {
                         executeFastMotionVideoCommand();
                     else
                         Snackbar.make(mainlayout, "Please check your internet connection", 4000).show();
-                }
-                else
+                } else
                     Snackbar.make(mainlayout, "Please upload a video", 4000).show();
             }
         });
@@ -210,8 +209,7 @@ public class MainActivity extends AppCompatActivity {
                         executeSlowMotionVideoCommand();
                     else
                         Snackbar.make(mainlayout, "Please check your internet connection", 4000).show();
-                }
-                else
+                } else
                     Snackbar.make(mainlayout, "Please upload a video", 4000).show();
             }
         });
@@ -438,7 +436,7 @@ public class MainActivity extends AppCompatActivity {
                 Environment.DIRECTORY_MOVIES
         );
 
-        String filePrefix = "cropper_video";
+        String filePrefix = "cut_video";
         String fileExtn = ".mp4";
         String yourRealPath = getPath(MainActivity.this, selectedImageUri);
         File dest = new File(moviesDir, filePrefix + fileExtn);
@@ -650,7 +648,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(String s) {
                     Log.d(TAG, "SUCCESS with output : " + s);
-                    if (choice == 1 || choice == 2 || choice == 5 || choice == 6||choice==7) {
+                    if (choice == 1 || choice == 2 || choice == 5 || choice == 6 || choice == 7) {
                         Intent intent = new Intent(MainActivity.this, PreviewActivity.class);
                         intent.putExtra(FILEPATH, filePath);
                         startActivity(intent);

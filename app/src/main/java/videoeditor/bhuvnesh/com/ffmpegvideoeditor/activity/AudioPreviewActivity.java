@@ -35,8 +35,15 @@ public class AudioPreviewActivity extends AppCompatActivity {
 
         mVisualizerView = (VisualizerView) findViewById(R.id.visualizerView);
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         initAudio();
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle arrow click here
