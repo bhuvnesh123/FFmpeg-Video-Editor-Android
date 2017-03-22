@@ -1,5 +1,5 @@
 # FFmpeg-Video-Editor
-Cutting and compressing video,extracting Picture from Video,add Fade In Fade Out effect,create fast and slow motion video using ffmpeg
+Cutting and compressing video,extracting image frames from video,extracting audio from video,add Fade In Fade Out effect,create fast and slow motion video using ffmpeg
 
 Below link contains tutorial on using ffmpeg to edit videos-
 

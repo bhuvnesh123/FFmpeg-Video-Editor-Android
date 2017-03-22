@@ -56,7 +56,7 @@ public class AudioPreviewActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (isFinishing() && mMediaPlayer != null) {
+        if (mMediaPlayer != null) {
             mVisualizer.release();
             mMediaPlayer.release();
             mMediaPlayer = null;
