@@ -9,4 +9,7 @@
     <string name="addFade">Add\nFade in-out</string>
     <string name="increaseSpeed">Fast\nMotion</string>
     <string name="decreaseSpeed">Slow\nMotion</string>
+    <string name="reverseVideo">Reverse\nVideo</string>
+    <string name="dialogMessage">The process will take some time.Please be patient.</string>
+
 </resources>
