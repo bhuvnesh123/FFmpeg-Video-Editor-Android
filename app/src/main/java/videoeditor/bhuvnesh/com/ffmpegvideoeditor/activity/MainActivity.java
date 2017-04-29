@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private Runnable r;
     private FFmpeg ffmpeg;
     private ProgressDialog progressDialog;
-    private Uri selectedImageUri;
+    private Uri selectedVideoUri;
     private static final String TAG = "BHUVNESH";
     private static final String POSITION = "position";
     private static final String FILEPATH = "filepath";
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
                 choice = 1;
 
-                if (selectedImageUri != null) {
+                if (selectedVideoUri != null) {
                     executeCompressCommand();
                 } else
                     Snackbar.make(mainlayout, "Please upload a video", 4000).show();
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
                 choice = 2;
 
-                if (selectedImageUri != null) {
+                if (selectedVideoUri != null) {
                     executeCutVideoCommand(rangeSeekBar.getSelectedMinValue().intValue() * 1000, rangeSeekBar.getSelectedMaxValue().intValue() * 1000);
                 } else
                     Snackbar.make(mainlayout, "Please upload a video", 4000).show();
@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
 
                 choice = 3;
 
-                if (selectedImageUri != null) {
+                if (selectedVideoUri != null) {
                     extractImagesVideo(rangeSeekBar.getSelectedMinValue().intValue() * 1000, rangeSeekBar.getSelectedMaxValue().intValue() * 1000);
                 } else
                     Snackbar.make(mainlayout, "Please upload a video", 4000).show();
@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
 
                 choice = 4;
 
-                if (selectedImageUri != null) {
+                if (selectedVideoUri != null) {
                     if (Build.VERSION.SDK_INT >= 23)
                         getAudioPermission();
                     else
@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 choice = 5;
-                if (selectedImageUri != null) {
+                if (selectedVideoUri != null) {
                     executeFadeInFadeOutCommand();
                 } else
                     Snackbar.make(mainlayout, "Please upload a video", 4000).show();
@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 choice = 6;
-                if (selectedImageUri != null) {
+                if (selectedVideoUri != null) {
                     executeFastMotionVideoCommand();
                 } else
                     Snackbar.make(mainlayout, "Please upload a video", 4000).show();
@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 choice = 7;
-                if (selectedImageUri != null) {
+                if (selectedVideoUri != null) {
                     executeSlowMotionVideoCommand();
                 } else
                     Snackbar.make(mainlayout, "Please upload a video", 4000).show();
@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
         reverseVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (selectedImageUri != null) {
+                if (selectedVideoUri != null) {
                     choice = 8;
                     final Dialog dialog = showSingleOptionTextDialog(mContext);
                     TextView tvDialogHeading = (TextView) dialog.findViewById(R.id.tvDialogHeading);
@@ -212,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
                     tvDialogSubmit.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            String yourRealPath = getPath(MainActivity.this, selectedImageUri);
+                            String yourRealPath = getPath(MainActivity.this, selectedVideoUri);
                             splitVideoCommand(yourRealPath);
                             dialog.dismiss();
                         }
@@ -336,8 +336,8 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_TAKE_GALLERY_VIDEO) {
-                selectedImageUri = data.getData();
-                videoView.setVideoURI(selectedImageUri);
+                selectedVideoUri = data.getData();
+                videoView.setVideoURI(selectedVideoUri);
                 videoView.start();
 
 
@@ -440,7 +440,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Command for cutting video created here
+     * Command for cutting video
      */
     private void executeCutVideoCommand(int startMs, int endMs) {
         File moviesDir = Environment.getExternalStoragePublicDirectory(
@@ -449,7 +449,7 @@ public class MainActivity extends AppCompatActivity {
 
         String filePrefix = "cut_video";
         String fileExtn = ".mp4";
-        String yourRealPath = getPath(MainActivity.this, selectedImageUri);
+        String yourRealPath = getPath(MainActivity.this, selectedVideoUri);
         File dest = new File(moviesDir, filePrefix + fileExtn);
         int fileNo = 0;
         while (dest.exists()) {
@@ -470,7 +470,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Command for compressing video created here
+     * Command for compressing video
      */
     private void executeCompressCommand() {
         File moviesDir = Environment.getExternalStoragePublicDirectory(
@@ -479,7 +479,7 @@ public class MainActivity extends AppCompatActivity {
 
         String filePrefix = "compress_video";
         String fileExtn = ".mp4";
-        String yourRealPath = getPath(MainActivity.this, selectedImageUri);
+        String yourRealPath = getPath(MainActivity.this, selectedVideoUri);
 
 
         File dest = new File(moviesDir, filePrefix + fileExtn);
@@ -498,7 +498,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Command for extracting images from video created here
+     * Command for extracting images from video
      */
     private void extractImagesVideo(int startMs, int endMs) {
         File moviesDir = Environment.getExternalStoragePublicDirectory(
@@ -507,7 +507,7 @@ public class MainActivity extends AppCompatActivity {
 
         String filePrefix = "extract_picture";
         String fileExtn = ".jpg";
-        String yourRealPath = getPath(MainActivity.this, selectedImageUri);
+        String yourRealPath = getPath(MainActivity.this, selectedVideoUri);
 
         File dir = new File(moviesDir, "VideoEditor");
         int fileNo = 0;
@@ -531,7 +531,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Command for adding fade in fade out effect at start and end of video created here
+     * Command for adding fade in fade out effect at start and end of video
      */
     private void executeFadeInFadeOutCommand() {
         File moviesDir = Environment.getExternalStoragePublicDirectory(
@@ -540,7 +540,7 @@ public class MainActivity extends AppCompatActivity {
 
         String filePrefix = "fade_video";
         String fileExtn = ".mp4";
-        String yourRealPath = getPath(MainActivity.this, selectedImageUri);
+        String yourRealPath = getPath(MainActivity.this, selectedVideoUri);
 
 
         File dest = new File(moviesDir, filePrefix + fileExtn);
@@ -569,7 +569,7 @@ public class MainActivity extends AppCompatActivity {
 
         String filePrefix = "speed_video";
         String fileExtn = ".mp4";
-        String yourRealPath = getPath(MainActivity.this, selectedImageUri);
+        String yourRealPath = getPath(MainActivity.this, selectedVideoUri);
 
 
         File dest = new File(moviesDir, filePrefix + fileExtn);
@@ -598,7 +598,7 @@ public class MainActivity extends AppCompatActivity {
 
         String filePrefix = "slowmotion_video";
         String fileExtn = ".mp4";
-        String yourRealPath = getPath(MainActivity.this, selectedImageUri);
+        String yourRealPath = getPath(MainActivity.this, selectedVideoUri);
 
 
         File dest = new File(moviesDir, filePrefix + fileExtn);
@@ -627,7 +627,7 @@ public class MainActivity extends AppCompatActivity {
 
         String filePrefix = "extract_audio";
         String fileExtn = ".mp3";
-        String yourRealPath = getPath(MainActivity.this, selectedImageUri);
+        String yourRealPath = getPath(MainActivity.this, selectedVideoUri);
         File dest = new File(moviesDir, filePrefix + fileExtn);
 
         int fileNo = 0;
@@ -645,6 +645,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Command for segmenting video
+     */
     private void splitVideoCommand(String path) {
         File moviesDir = Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_MOVIES
@@ -663,6 +666,9 @@ public class MainActivity extends AppCompatActivity {
         execFFmpegBinary(complexCommand);
     }
 
+    /**
+     * Command for reversing segmented video
+     */
     private void reverseVideoCommand() {
         File moviesDir = Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_MOVIES
@@ -686,6 +692,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Command for concating reversed segmented video
+     */
     private void concatVideoCommand() {
         File moviesDir = Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_MOVIES
