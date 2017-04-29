@@ -667,7 +667,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Command for reversing segmented video
+     * Command for reversing segmented videos
      */
     private void reverseVideoCommand() {
         File moviesDir = Environment.getExternalStoragePublicDirectory(
@@ -693,7 +693,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Command for concating reversed segmented video
+     * Command for concating reversed segmented videos
      */
     private void concatVideoCommand() {
         File moviesDir = Environment.getExternalStoragePublicDirectory(
