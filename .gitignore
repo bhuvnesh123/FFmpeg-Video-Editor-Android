@@ -1,0 +1,17 @@
+# Created by .ignore support plugin (hsz.mobi)
+.gradle/
+.idea/
+.idea/compiler.xml
+.idea/copyright/
+.idea/gradle.xml
+.idea/libraries/support_annotations_21_0_3.xml
+.idea/markdown-navigator/
+.idea/misc.xml
+.idea/modules.xml
+.idea/runConfigurations.xml
+.idea/vcs.xml
+.idea/workspace.xml
+*/**/*.iml
+FFmpeg-Video-Editor-Android.iml
+build/
+local.properties
