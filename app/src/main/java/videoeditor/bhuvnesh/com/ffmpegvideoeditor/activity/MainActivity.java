@@ -67,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
     private int duration;
     private Context mContext;
     private String[] lastReverseCommand;
+    
+    String uri = "/storage/emulated/0/pictures/fankick.png";
+    String link = "/storage/emulated/0/Audio/nuvvu.mp4";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +84,8 @@ public class MainActivity extends AppCompatActivity {
         TextView increaseSpeed = (TextView) findViewById(R.id.increaseSpeed);
         TextView decreaseSpeed = (TextView) findViewById(R.id.decreaseSpeed);
         final TextView reverseVideo = (TextView) findViewById(R.id.reverseVideo);
+        TextView watermark = (TextView) findViewById(R.id.watermark);
+        TextView merger = (TextView) findViewById(R.id.merger);
 
 
         tvLeft = (TextView) findViewById(R.id.tvLeft);
@@ -222,6 +227,31 @@ public class MainActivity extends AppCompatActivity {
 
                 } else
                     Snackbar.make(mainlayout, "Please upload a video", 4000).show();
+            }
+        });
+        
+        watermark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                choice = 9;
+                String yourRealPath = null;
+
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+                    yourRealPath = getPath(MainActivity.this, selectedVideoUri);
+                }
+                makeWaterMark(yourRealPath);
+            }
+        });
+
+        merger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                choice = 10;
+                String yourRealPath = null;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+                    yourRealPath = getPath(MainActivity.this, selectedVideoUri);
+                }
+                mergeVideo(yourRealPath);
             }
         });
     }
