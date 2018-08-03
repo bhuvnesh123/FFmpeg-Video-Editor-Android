@@ -728,6 +728,43 @@ public class MainActivity extends AppCompatActivity {
         String[] destinationCommand = {"-map", "[v]", "-map", "[a]", dest.getAbsolutePath()};
         execFFmpegBinary(combine(inputCommand, filterCommand, destinationCommand));
     }
+    
+    private void makeWaterMark(String path) {
+        File moviesDir = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_MOVIES
+        );
+        String filePrefix = "split_video";
+        String fileExtn = ".mp4";
+        String yourRealPath = path;
+
+        File dir = new File(moviesDir, ".VideoSplit");
+        if (dir.exists())
+            deleteDir(dir);
+        dir.mkdir();
+        File dest = new File(dir, filePrefix + "%03d" + fileExtn);
+        myPath = dest.getAbsolutePath();
+        String[] complexCommand = {"-i", yourRealPath, "-i", uri, "-filter_complex", "overlay=0:0", "-codec:a", "copy", "-preset", "ultrafast", myPath};//overlay=x=10:y=H-h-10,overlay=x=W-w-10:y=H-h-10 ,overlay=10:main_h-overlay_h-10  main_w-overlay_w-150:main_h-overlay_h-250
+        execFFmpegBinary(complexCommand);
+    }
+    
+    private void mergeVideo(String path) {
+        File moviesDir = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_MOVIES
+        );
+        String filePrefix = "split_video";
+        String fileExtn = ".mp4";
+        String yourRealPath = path;
+
+        File dir = new File(moviesDir, ".VideoSplit");
+        if (dir.exists())
+            deleteDir(dir);
+        dir.mkdir();
+        File dest = new File(dir, filePrefix + "%03d" + fileExtn);
+        myPath = dest.getAbsolutePath();
+
+        String[] complexCommand = {"-i", yourRealPath, "-i", link.toString(), "-filter_complex", "hstack,format=yuv420p", "-c:v", "libx264", "-crf", "18", "-preset", "ultrafast", myPath};
+        execFFmpegBinary(complexCommand);
+    }
 
     public static String[] combine(String[] arg1, String[] arg2, String[] arg3) {
         String[] result = new String[arg1.length + arg2.length + arg3.length];
