@@ -33,6 +33,7 @@
             android:layout_marginTop="@dimen/dp5"
             app:showLabels="false"
             rsb:activeColor="#ED1C24"
+            rsb:barHeight="1dp"
             rsb:textAboveThumbsColor="#000000" />
 
         <TextView
