@@ -8,6 +8,6 @@ Below link contains tutorial on using ffmpeg to edit videos-
 
 https://androidlearnersite.wordpress.com/2017/03/17/ffmpeg-video-editor/
 
-This repository contains sample project for an extended app on PlayStore at below link-
+This repository contains sample project for an extended app at below link-
 
-https://play.google.com/store/apps/details?id=videoeditor.bhuvnesh.com.ffmpegvideoeditor
+https://apkfab.com/video-editor-using-ffmpeg/videoeditor.bhuvnesh.com.ffmpegvideoeditor
