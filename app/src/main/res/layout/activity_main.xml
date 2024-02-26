@@ -189,6 +189,31 @@
                     android:text="@string/reverseVideo"
                     android:textColor="#FFFFFF"
                     android:textSize="@dimen/sp16" />
+
+
+                <TextView
+                    android:id="@+id/watermark"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/crop_video_selector"
+                    android:gravity="center"
+                    android:padding="@dimen/dp2"
+                    android:text="@string/watermark"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/sp16" />
+
+                <TextView
+                    android:id="@+id/merger"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/extract_images_selector"
+                    android:gravity="center"
+                    android:padding="@dimen/dp2"
+                    android:text="@string/merge"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/sp16" />
             </TableRow>
         </TableLayout>
 
